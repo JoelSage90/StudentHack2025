@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Layout</title>
@@ -10,7 +11,7 @@
     <div class="sidebar">
         <h2><img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="es" class="es_logo_white"></h2>
         <a href="#"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt=""></a>
-        <a href="#"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt =""></a>
+        <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt =""></a>
         <a href="#"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt =""></a>
         <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt =""></a>
         <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt =""></a>
@@ -29,14 +30,19 @@
                 </div>
             </div>
             <div class="box">Who to talk to?
-                <div class="todo-list">
-                    <div class="row">
-                        <img src="{{ url_for('static', filename='icons/user.svg') }}" style="width: 45px; height: auto;">
+                <div class="profile">
+                    <div class="profile-icon">
+                        <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="Profile Icon">
                     </div>
-                    <ul id="list-container">
-                    </ul>
+                    <div class="profile-info">
+                        <p><strong>Name:</strong> John Doe</p>
+                        <p><strong>Relation:</strong> Son</p>
+                    </div>
+                    <div class="message-icon">
+                        <img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Message Icon" onclick="handleProfileClick('John Doe')">
+                    </div>
                 </div>
-            </div>
+            </div>                  
         </div>
         <div class="bottom">
             <div id="voice-container">

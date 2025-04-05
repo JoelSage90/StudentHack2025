@@ -1,0 +1,42 @@
+/* Side navigation bar */
+.sidebar {
+    width: 126px;
+    background-color: #3a3d4f;
+    color: white;
+    padding-top: 10px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.sidebar a:hover {
+    background-color: #4d5063;
+}
+
+.sidebar a img {
+    width: 32px;
+    height: 32px;
+    filter: invert(100%);
+}
+
+.es_logo_white {
+    height: 100px;
+    width: auto;
+}
