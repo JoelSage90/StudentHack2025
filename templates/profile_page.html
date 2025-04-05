@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Profile</title>
-    <style>
-    </style>
-    </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/slidebar.css') }}">
+</head>
 <body>
-
     <div class="sidebar">
         <h2><img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="es" class="es_logo_white"></h2>
-        <a href="#"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt=""></a>
-        <a href="#"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt =""></a>
-        <a href="#"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt =""></a>
-        <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt =""></a>
-        <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt =""></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Edit User"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Messages"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
     </div>
 
-    <div class="profile-card">
-        <img class="profile-image" src="https://via.placeholder.com/120" alt="Profile Image" />
-        <h1>John Doe</h1>
-        <p>London, United Kingdom</p>
-        <p>Alzheimer’s Patient</p>
-
-        <div class="info-row">
-            <div class="info">
-            <div class="value">78</div>
-            <div class="label">Age</div>
+    <div class="main-content">
+        <div class="profile-card">
+            <img class="profile-image" src="https://via.placeholder.com/120" alt="Profile Image" />
+            <h1>John Doe</h1>
+            <p>London, United Kingdom</p>
+            <p>Alzheimer's Patient</p>
+    
+            <div class="info-row">
+                <div class="info">
+                    <div class="value">78</div>
+                    <div class="label">Age</div>
+                </div>
+                <div class="info">
+                    <div class="value">Male</div>
+                    <div class="label">Gender</div>
+                </div>
             </div>
-            <div class="info">
-            <div class="value">Male</div>
-            <div class="label">Gender</div>
-            </div>
+            
+            <button class="button">Show more</button>
         </div>
-
-        <button class="button">Show more</button>
     </div>
-
 </body>
 </html>
