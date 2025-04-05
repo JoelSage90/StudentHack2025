@@ -14,7 +14,8 @@ google_bp = make_google_blueprint(
     client_id=app.config["GOOGLE_OAUTH_CLIENT_ID"],
     client_secret=app.config["GOOGLE_OAUTH_CLIENT_SECRET"],
     redirect_to="google_login",  
-    scope=["profile", "email"],  
+    scope=["openid", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
+
 )
 app.register_blueprint(google_bp, url_prefix="/login")
 
@@ -88,13 +89,13 @@ def google_login():
         return redirect(url_for('google.login'))
 
     # Fetch user info from Google
-    user_info = google.get("/plus/v1/people/me")
+    user_info = google.get("https://www.googleapis.com/oauth2/v3/userinfo")
     
     # Ensure the request was successful
     if user_info.ok:
         google_user = user_info.json()
-        google_id = google_user["id"]
-        name = google_user["displayName"]
+        google_id = google_user["sub"]
+        name = google_user["name"]
 
         # Check if the user already exists in the database
         user = User.query.filter_by(google_id=google_id).first()
@@ -108,7 +109,7 @@ def google_login():
         
         return redirect(url_for('home'))
     else:
-        return 'Failed to fetch user info from Google.'
+        return f"Failed to fetch user info from Google. Status code: {user_info.status_code}. Response: {user_info.text}"
 
 if __name__ == "__main__":
     with app.app_context():
