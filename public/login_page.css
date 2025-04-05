@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+}
+
+.left {
+    flex: 1;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative; 
+}
+
+
+.left img {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 60px;
+    height: auto;
+}
+
+
+.right {
+    flex: 0.6;
+    background-color: #404252;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+
+input[type="text"],
+input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid gray;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+.bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+
+h2 {
+    margin-bottom: 10px;
+}
+
+h5 {
+    margin-bottom: 20px;
+}
