@@ -79,6 +79,7 @@ def home():
 @app.route("/profile_page", methods = ["POST", "GET"])
 def home():
     return render_template("progile_page.html")
+
 #google login stuff
 @app.route("/google_login")
 def google_login():
