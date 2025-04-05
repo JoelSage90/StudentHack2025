@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, session
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_sqlalchemy import SQLAlchemy
 import secrets
+import os
 
 app = Flask("__name__")
 app.secret_key = str(secrets.token_hex(16))
@@ -114,4 +115,10 @@ def google_login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, host='localhost', port=4000, ssl_context=('cert.crt', 'cert.key'))
+    
+    use_ssl = os.environ.get("USE_SSL", "false").lower() == "true"
+
+    if use_ssl:
+        app.run(debug=True, host='localhost', port=4000, ssl_context=('cert.crt', 'cert.key'))
+    else:
+        app.run(debug=True, host='localhost', port=4000)
