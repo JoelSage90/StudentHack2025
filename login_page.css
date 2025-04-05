@@ -30,8 +30,8 @@ body, html {
 
 .left .logo {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 30px;
+    left: 30px;
     width: 60px;
     height: auto;
 }
@@ -96,7 +96,6 @@ h2 {
 h5 {
     margin-bottom: 20px;
 }
-
 
 .login-button {
     display: flex;
