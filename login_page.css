@@ -28,7 +28,7 @@ body, html {
 }
 
 
-.left img {
+.left .logo {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -96,3 +96,24 @@ h2 {
 h5 {
     margin-bottom: 20px;
 }
+
+
+.login-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.login-button:hover{
+    background-color: #eeeeee;
+}
+.login-button img {
+    width: 20px;
+    height: 20px;
+  }
