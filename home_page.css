@@ -7,70 +7,187 @@
 body {
     display: flex;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: 'YourFont', sans-serif;
+    background-color: #f8f9fa;
+}
+
+@font-face {
+    font-family: 'YourFont';
+    src: url('icons/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.woff') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Side navigation bar */
 .sidebar {
-    width: 120px;
-    background-color: #333;
+    width: 126px;
+    background-color: #3a3d4f;
     color: white;
-    padding: 20px;
+    padding-top: 10px;
     height: 100vh;
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
 }
 
 .sidebar a {
-    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
     text-decoration: none;
-    display: block;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .sidebar a:hover {
-    background-color: #575757;
+    background-color: #4d5063;
 }
 
 .sidebar a img {
-    width: 30px;  /* Adjust the width of the icon */
-    height: 30px; /* Adjust the height of the icon */
-    margin-bottom: 5px; /* Optional: Add space between the icon and text */
+    width: 32px;
+    height: 32px;
+    filter: invert(100%);
+}
+
+.es_logo_white {
+    height: 100px;
+    width: auto;
 }
 
 /* Main content area */
 .main-content {
-    margin-left: 220px;
-    width: 100%;
+    margin-left: 126px;
+    width: calc(100% - 126px);
     display: flex;
     flex-direction: column;
+    padding: 30px;
+    gap: 30px;
 }
 
-/* Flexbox layout */
+/* Top section */
 .top {
     display: flex;
     justify-content: space-between;
-    flex: 2;
-    margin: 20px;
+    gap: 30px;
+    height: 500px;
 }
 
 .top .box {
-    flex: 2;
-    margin-right: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
+    flex: 1;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    font-size: 18px;
+    font-weight: 500;
+    height: 100%;
 }
 
-.top .box:last-child {
-    margin-right: 0;
-}
-
+/* Bottom section */
 .bottom {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    flex: 2;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Voice Assistant Styles */
+#voice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#voice-text {
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 50px;
+}
+
+.voice-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #3a3d4f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.voice-icon img {
+    width: 40px;
+    height: 40px;
+    filter: invert(100%);
+}
+
+/* Hover animation for the voice icon */
+.voice-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(58, 61, 79, 0.5);
+    animation: pulse-hover 1.5s infinite;
+}
+
+/* Active/listening state */
+.voice-icon.listening {
+    background-color: #e74c3c;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse-hover {
+    0% {
+        box-shadow: 0 0 0 0 rgba(58, 61, 79, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(58, 61, 79, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(58, 61, 79, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
+#response-area {
+    margin-top: 40px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#recognized-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#assistant-response {
+    font-size: 20px;
+    color: #333;
+    font-weight: 500;
 }

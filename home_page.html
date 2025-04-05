@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="home_page.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Layout</title>
+    <link rel="stylesheet" href="home_page.css">
 </head>
 <body>
-
     <div class="sidebar">
-        <h2>S</h2>
-        <a href="#"><img src="icons/iconmonstr-home-7-240.png" alt=""></a>
-        <a href="#"><img src="icons/iconmonstr-user-6-240.png" alt =""></a>
-        <a href="#"><img src="icons/iconmonstr-speech-bubble-thin-240.png" alt =""></a>
-        <a href="#"><img src="icons/iconmonstr-user-30-240.png" alt=""></a>
-        <a href="#"><img src="icons/iconmonstr-gear-thin-240.png" alt=""></a>
+        <h2><img src="icons/es_logo_white.png" alt="es" class="es_logo_white"></h2>
+        <a href="#"><img src="icons/house.svg" alt="Home"></a>
+        <a href="#"><img src="icons/user-pen.svg" alt="Edit Profile"></a>
+        <a href="#"><img src="icons/message-circle.svg" alt="Messages"></a>
+        <a href="#"><img src="icons/users.svg" alt="Users"></a>
+        <a href="#"><img src="icons/settings.svg" alt="Settings"></a>
     </div>
 
     <div class="main-content">
@@ -22,8 +21,20 @@
             <div class="box">Daily Reminders</div>
             <div class="box">Who to talk to?</div>
         </div>
-        <div class="bottom">What can I help with?</div>
+        <div class="bottom">
+            <div id="voice-container">
+                <div id="voice-text">What can I help with?</div>
+                <div id="voice-icon" class="voice-icon">
+                    <img src="icons/audio-lines.svg" alt="Voice Assistant">
+                </div>
+                <div id="response-area">
+                    <p id="recognized-text"></p>
+                    <p id="assistant-response"></p>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <script src="voice-assistant.js"></script>
 </body>
 </html>
