@@ -7,7 +7,6 @@
     <title>Simple Layout</title>
 </head>
 <body>
-
     <div class="sidebar">
         <h2><img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="es" class="es_logo_white"></h2>
         <a href="#"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt=""></a>
@@ -19,8 +18,25 @@
 
     <div class="main-content">
         <div class="top">
-            <div class="box">Daily Reminders</div>
-            <div class="box">Who to talk to?</div>
+            <div class="box">Reminders:
+                <div class="todo-list">
+                    <div class="row">
+                        <input type="text" id="input-box" placeholder="Add Your Reminder">
+                        <button onclick="AddTask()">Add</button>
+                    </div>
+                    <ul id="list-container">
+                    </ul>
+                </div>
+            </div>
+            <div class="box">Who to talk to?
+                <div class="todo-list">
+                    <div class="row">
+                        <img src="{{ url_for('static', filename='icons/user.svg') }}" style="width: 45px; height: auto;">
+                    </div>
+                    <ul id="list-container">
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="bottom">
             <div id="voice-container">
@@ -35,7 +51,6 @@
             </div>
         </div>
     </div>
-
-    <script src="voice-assistant.js"></script>
+    <script src="{{ url_for('static', filename='js/homepage.js') }}"></script>
 </body>
 </html>
