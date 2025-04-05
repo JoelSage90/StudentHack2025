@@ -73,12 +73,13 @@ class Reminders(db.Model):
 def index():
     return render_template("login_page.html")
 
-@app.route("/home", methods = ["POST", "GET"])
+@app.route("/home")
 def home():
     return render_template("home_page.html")
-@app.route("/profile_page", methods = ["POST", "GET"])
-def home():
-    return render_template("progile_page.html")
+
+@app.route("/profile_page")
+def profile_page():
+    return render_template("profile_page.html")
 
 #google login stuff
 @app.route("/google_login")
