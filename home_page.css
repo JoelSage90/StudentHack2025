@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Side navigation bar */
+.sidebar {
+    width: 120px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar a img {
+    width: 30px;  /* Adjust the width of the icon */
+    height: 30px; /* Adjust the height of the icon */
+    margin-bottom: 5px; /* Optional: Add space between the icon and text */
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 220px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Flexbox layout */
+.top {
+    display: flex;
+    justify-content: space-between;
+    flex: 2;
+    margin: 20px;
+}
+
+.top .box {
+    flex: 2;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+.top .box:last-child {
+    margin-right: 0;
+}
+
+.bottom {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    flex: 2;
+}
