@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Relationships</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/siderbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/relations_list.css') }}">
+</head>
+<body>
+  <div class="page-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="ES Logo" class="es_logo_white">
+      <nav>
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
+        <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Profile"></a>
+        <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Conversations"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <h2>Who to talk to?</h2>
+      <div class="person-card">
+        <div class="person-info">
+          <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="User" class="person-icon">
+          <div class="person-details">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Relation:</strong> Son</p>
+          </div>
+        </div>
+        <img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Chat" class="chat-icon">
+      </div>
+
+      <button class="add-button" onclick="openModal()">+</button>
+
+      <!-- Modal -->
+      <div class="modal" id="addModal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h3>Add New Relation</h3>
+          <form id="relationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="relation">Relation:</label>
+            <input type="text" id="relation" name="relation" required>
+
+            <button type="submit">Add</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/relations_list.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fbfd;
+    color: #333;
+  }
+  
+  .page-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+    margin-left: 126px; /* adjust for sidebar */
+    position: relative;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .person-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f3f3f3;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+  
+  .person-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .person-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.6;
+  }
+  
+  .chat-icon {
+    width: 32px;
+    height: 32px;
+    opacity: 0.6;
+  }
+  
+  .add-button {
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    border: none;
+    background-color: #4a6ee0;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-button:hover {
+    background-color: #3d5bcc;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .close {
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 1rem;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  form button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #4a6ee0;
+    color: white;
+    cursor: pointer;
+  }

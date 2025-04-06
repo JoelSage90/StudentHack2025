@@ -153,7 +153,7 @@ try {
         const selectedId = dropdown.value;
         const selectedName = dropdown.options[dropdown.selectedIndex].text;
         window.currentAssociateId = parseInt(selectedId, 10);
-        voiceText.textContent = `What would you like to say to ${selectedName}?`;
+        voiceText.textContent = `What would you like to ask ${selectedName}?`;
     });
 } catch (err) {
     console.error('Failed to fetch relationships:', err);

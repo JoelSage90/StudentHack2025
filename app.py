@@ -293,6 +293,16 @@ def start_conversation():
         print("Error starting chatbot:", e)
         traceback.print_exc()  # This will show the full error trace
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/get_relationships')
+def get_relationships():
+    # Example relationships from your database
+    relationships = [
+        {'id': 1, 'name': 'Alex Johnson'},
+        {'id': 2, 'name': 'Jamie Smith'},
+        {'id': 3, 'name': 'Taylor Lee'}
+    ]
+    return jsonify({'relationships': relationships})
 
 #stop convo
 @app.route('/stop_conversation', methods=['POST'])

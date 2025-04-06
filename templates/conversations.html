@@ -27,6 +27,14 @@
 
   <!-- Main Content -->
   <main class="voice-visualizer">
+    <div class="relationship-selector">
+      <label for="relationship-dropdown">Talk to:</label>
+      <select id="relationship-dropdown">
+        <option value=""></option>
+        <!-- Options will be populated dynamically -->
+      </select>
+    </div>
+    <br><br>
     <div id="mic-circle" role="button" aria-label="Start recording" tabindex="0"></div>
     <p id="voice-text">Tap to start</p>
 

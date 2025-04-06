@@ -44,3 +44,15 @@ body {
 .voice-visualizer > * {
   margin-bottom: 20px; /* or use 'gap' if it's a flex column */
 }
+
+.relationship-selector {
+  margin: 1rem auto;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+#relationship-dropdown {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+}
