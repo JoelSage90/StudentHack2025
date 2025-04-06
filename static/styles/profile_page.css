@@ -70,7 +70,7 @@ p {
 
 .button {
   margin-top: 30px;
-  background: #ff4e94;
+  background: #3a3d4f;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -81,7 +81,9 @@ p {
 }
 
 .button:hover {
-  background: #ff347d;
+  background: #4d5063;
+  transform: scale(1.05);
+
 }
 
 .sidebar {

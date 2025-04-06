@@ -47,7 +47,7 @@
         <div class="bottom">
             <div id="voice-container">
                 <div id="voice-text">What can I help with?</div>
-                <div id="voice-icon" class="voice-icon">
+                <div id="voice-icon" class="voice-icon" onclick="startRecording()">
                     <img src="{{ url_for('static', filename='icons/audio-lines.svg') }}" alt="Voice Assistant">
                 </div>
                 <div id="response-area">
@@ -57,6 +57,12 @@
             </div>
         </div>
     </div>
+
+    <!-- Sliding Text Container -->
+    <div id="sliding-text-container">
+        <div id="sliding-text">Waiting for your command...</div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/homepage.js') }}"></script>
 </body>
 </html>
