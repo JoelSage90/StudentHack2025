@@ -6,16 +6,16 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #777986, #B3B5BD);
-  min-height: 100vh;
+  background: #FFF
 }
 
 .profile-card {
-  background: white;
+  background: #3a3d4f;
   border-radius: 20px;
   padding: 40px 30px 30px;
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
@@ -23,28 +23,29 @@ body {
 }
 
 .profile-image {
+  filter: invert(1);
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 6px solid white;
+  border: 6px solid #3a3d4f;
   position: absolute;
-  top: -60px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
-  margin-top: 70px;
+  margin-top: 120px;
   font-size: 24px;
-  color: #333;
+  color: #fff;
 }
 
 p {
   margin: 5px 0;
   font-size: 14px;
-  color: #666;
+  color: #fff;
 }
 
 .info-row {
@@ -54,24 +55,24 @@ p {
 }
 
 .info {
-  text-align: center;
+  text-align: bottom;
 }
 
 .info .label {
   font-size: 13px;
-  color: #999;
+  color: #fff;
 }
 
 .info .value {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: #fff;
 }
 
 .button {
   margin-top: 30px;
-  background: #3a3d4f;
-  color: white;
+  background: #fff;
+  color: 3a;
   padding: 12px 24px;
   border: none;
   border-radius: 25px;
