@@ -21,13 +21,12 @@
         <div class="top">
             <div class="box">Reminders:
                 <div class="todo-list">
-                    
-                        <form action="/submit" method="POST">
-                            <div class="row">
+                    <div class="row">
+                        <form action="" method="POST">
                             <input type="text" name="reminder" id="input-box" placeholder="Add Your Reminder">
                             <button onclick="AddTask()">Add</button>
-                            </div>
                         </form>
+                    </div>
                     <ul id="list-container">
                         {% for reminder in reminders %}
                         <li>{{reminder.info}}</li>

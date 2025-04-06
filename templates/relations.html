@@ -4,23 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Relationships</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/relations_list.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/siderbar.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/relations_list.css') }}">
 </head>
 <body>
-  <div class="sidebar">
-    <h2><img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="es" class="es_logo_white"></h2>
-    <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
-    <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Edit User"></a>
-    <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Messages"></a>
-    <a href="{{  url_for('relations') }}"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
-    <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
-  </div>  
+  <div class="page-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="ES Logo" class="es_logo_white">
+      <nav>
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
+        <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Profile"></a>
+        <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Conversations"></a>
+        <a href="{{  url_for('relations') }}"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+        <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
+      </nav>
+    </aside>
 
     <!-- Main content -->
     <main class="main-content">
-      <h2 class = "main-title">Who to talk to?</h2>
+      <h2>Who to talk to?</h2>
       <div class="person-card">
         <div class="person-info">
           <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="User" class="person-icon">
@@ -31,9 +35,8 @@
         </div>
         <img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Chat" class="chat-icon">
       </div>
-      <div class = "add-button-container">
-        <button class="add-button" onclick="openModal()">+</button>
-      </div>
+
+      <button class="add-button" onclick="openModal()">+</button>
 
       <!-- Modal -->
       <div class="modal" id="addModal">
