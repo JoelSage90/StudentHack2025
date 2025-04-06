@@ -107,6 +107,10 @@ def home():
 def profile_page():
     return render_template("profile_page.html")
 
+@app.route("/conversations")
+def conversations():
+    return render_template("conversations.html")
+
 @app.route("/google_login")
 def google_login():
     if not google.authorized:
