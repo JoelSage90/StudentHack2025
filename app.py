@@ -4,11 +4,17 @@ from flask_sqlalchemy import SQLAlchemy
 import secrets
 import requests
 import os
+import asyncio
+from threading import Thread
 from pydub import AudioSegment
 import whisper
 import ssl
 import re
+from dotenv import load_dotenv
+from generic_chatbot import SpeechToSpeechChatbot,ChatbotRunner
 
+load_dotenv()
+chatbot = SpeechToSpeechChatbot(apiKey="85ae897af5085ba9d361e834fe7b8800372be6de5ff2cf93463ebfb50ab9f34c.7f682778-f032-440c-8594-b88a279f5d04")
 ssl._create_default_https_context = ssl._create_unverified_context
 
 model = whisper.load_model("base")  # You can change this to a larger model if needed
@@ -272,6 +278,27 @@ def check_conversations():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+chatbot_runner = ChatbotRunner(chatbot)
+
+#start convo
+import traceback
+
+@app.route('/start_conversation', methods=['POST'])
+def start_conversation():
+    try:
+        chatbot_runner.start_chat()
+        return jsonify({"message": "Chatbot started."}), 200
+    except Exception as e:
+        print("Error starting chatbot:", e)
+        traceback.print_exc()  # This will show the full error trace
+        return jsonify({"error": str(e)}), 500
+
+#stop convo
+@app.route('/stop_conversation', methods=['POST'])
+def stop_conversation():
+    chatbot_runner.stop_chat()
+    return jsonify({"message": "Chatbot stopped."}), 200
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
