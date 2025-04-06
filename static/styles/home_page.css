@@ -7,15 +7,8 @@
 body {
     display: flex;
     min-height: 100vh;
-    font-family: 'YourFont', sans-serif;
+    font-family: sans-serif;
     background-color: #f8f9fa;
-}
-
-@font-face {
-    font-family: 'YourFont';
-    src: url('icons/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.tff') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 /* Main content area */
@@ -92,14 +85,12 @@ body {
     filter: invert(100%);
 }
 
-/* Hover animation for the voice icon */
 .voice-icon:hover {
     transform: scale(1.1);
     box-shadow: 0 0 20px rgba(58, 61, 79, 0.5);
     animation: pulse-hover 1.5s infinite;
 }
 
-/* Active/listening state */
 .voice-icon.listening {
     background-color: #e74c3c;
     transform: scale(1.1);
@@ -149,7 +140,7 @@ body {
     font-weight: 500;
 }
 
-/* Todo list styling - fixed and improved */
+/* Todo list styling */
 .todo-list {
     width: 100%;
     max-width: 100%;
@@ -202,25 +193,16 @@ ul li {
     user-select: none;
     cursor: pointer;
     position: relative;
-    transition: opacity 1s ease; /* Add transition for opacity */
+    transition: opacity 1s ease;
 }
 
-ul li::before{
-    content: '';
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    border-radius: 50%;
-    background-position: center;
-    top: 12px;
-    left: 8px;
-}
-
-ul li.checked{
+/* You can keep this if your JS adds this class */
+ul li.checked {
     color: #333;
     text-decoration: line-through;
 }
 
+/* Profile section */
 .profile {
     display: flex;
     align-items: center;
@@ -252,6 +234,6 @@ ul li.checked{
     color: #333;
 }
 
-.message-icon img:hover{
+.message-icon img:hover {
     transform: scale(1.1);
 }
