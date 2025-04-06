@@ -20,7 +20,7 @@
       <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
       <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Profile"></a>
       <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Conversations"></a>
-      <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+      <a href="{{  url_for('relations') }}"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
       <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
     </nav>
   </aside>
@@ -30,8 +30,10 @@
     <div class="relationship-selector">
       <label for="relationship-dropdown">Talk to:</label>
       <select id="relationship-dropdown">
-        <option value=""></option>
+        {% for person in people %}
+        <option value={{person.name}}></option>
         <!-- Options will be populated dynamically -->
+         {% endfor %}
       </select>
     </div>
     <br><br>

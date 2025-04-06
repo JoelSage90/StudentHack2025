@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from generic_chatbot import SpeechToSpeechChatbot,ChatbotRunner
 
 load_dotenv()
-chatbot = SpeechToSpeechChatbot(apiKey="85ae897af5085ba9d361e834fe7b8800372be6de5ff2cf93463ebfb50ab9f34c.7f682778-f032-440c-8594-b88a279f5d04")
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 model = whisper.load_model("base")  # You can change this to a larger model if needed
@@ -140,30 +140,36 @@ def home():
             db.session.commit()
         except Exception as e:
             return f"Error:{e}"
-
     
-    @app.route('/delete-reminder/<int:reminder_id>', methods=['DELETE'])
-    def delete_reminder(reminder_id):
-        # Find the reminder by its ID in the database
-        reminder = Reminders.query.get(reminder_id)
-        
-        if reminder:
-            db.session.delete(reminder)
-            db.session.commit()
-            return jsonify({'message': 'Reminder deleted successfully!'}), 200
-        else:
-            return jsonify({'message': 'Reminder not found'}), 404
+    reminders = Reminders.query.filter((Reminders.user_id == session['user_id']) and (Reminders.complete == False)).all()
+    people = Associates.query.filter(Associates.user_id == session['user_id']).all()
+    return render_template("home_page.html", reminders = reminders,people = people)
+    
+@app.route('/delete-reminder/<int:reminder_id>', methods=['DELETE'])
+def delete_reminder(reminder_id):
+    # Find the reminder by its ID in the database
+    reminder = Reminders.query.get(reminder_id)
+    
+    if reminder:
+        db.session.delete(reminder)
+        db.session.commit()
+        return jsonify({'message': 'Reminder deleted successfully!'}), 200
+    else:
+        return jsonify({'message': 'Reminder not found'}), 404
 
-    return render_template("home_page.html")
 
 @app.route("/profile_page")
 def profile_page():
     return render_template("profile_page.html")
 
-@app.route("/conversations")
-def conversations():
-    return render_template("conversations.html")
+@app.route("/relations")
+def relations():
+    return render_template("relations.html")
 
+@app.route("/conversations", methods = ["GET"])
+def conversations():
+    people = Associates.query.filter(Associates.user_id == session['user_id']).all()
+    return render_template("conversations.html",people= people)
 
 
 @app.route("/process_conversation", methods=['POST'])
@@ -304,7 +310,27 @@ def check_conversations():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+def contextMaker():
+    user_info = User.query.filter(User.id == session['user_id']).first()
+    user_convos = Conversations.query.filter(Conversations.user_id == session['user_id']).with_entities(Conversations.conversation_text).all()
 
+    # Format and construct the user context string
+    if user_info:
+        user_info_str = f"Name: {user_info.name}, Email: {user_info.email}"  # Adjust fields based on your User model
+    else:
+        user_info_str = "No user info found."
+
+    # Extract conversation texts from the list of tuples and join them into a string
+    user_convos_str = "\n".join([convo.conversation_text for convo in user_convos])
+
+    # Construct the context string
+    user_context = f"context: user is giving speech to text input and you are being used to give a voice output for a " \
+                "patient with Alzheimer's. The following is the context about this person and memories of this person. " \
+                "Please use this to help in your conversation with them. User info: {user_info_str}.\n" \
+                "These are conversations involving the user: {user_convos_str}"
+    return user_context
+user_context = contextMaker
+chatbot = SpeechToSpeechChatbot(apiKey= os.getenv("API_KEY"), context=user_context)
 chatbot_runner = ChatbotRunner(chatbot)
 
 #start convo
@@ -320,15 +346,6 @@ def start_conversation():
         traceback.print_exc()  # This will show the full error trace
         return jsonify({"error": str(e)}), 500
     
-@app.route('/get_relationships')
-def get_relationships():
-    # Example relationships from your database
-    relationships = [
-        {'id': 1, 'name': 'Alex Johnson'},
-        {'id': 2, 'name': 'Jamie Smith'},
-        {'id': 3, 'name': 'Taylor Lee'}
-    ]
-    return jsonify({'relationships': relationships})
 
 #stop convo
 @app.route('/stop_conversation', methods=['POST'])

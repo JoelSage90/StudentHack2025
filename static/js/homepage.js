@@ -133,11 +133,21 @@ listContainer.addEventListener("click", function (e) {
                 e.target.style.margin = "0";
 
                 setTimeout(() => {
-                    e.target.remove();
-                    saveData();
+                    // Send DELETE request to the backend to delete the reminder
+                    fetch(`/delete-reminder/${reminder.id}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message === 'Reminder deleted successfully!') {
+                            e.target.remove();  // Remove the item from the UI if successfully deleted
+                            saveData();  // Save data after removal
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
                 }, 1000);
             }, 500);
-            
+
         } else {
             saveData();
         }

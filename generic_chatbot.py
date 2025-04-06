@@ -23,11 +23,12 @@ class ChatbotRunner:
         asyncio.run_coroutine_threadsafe(self.chatbot.stop_chat(), self.loop)
 
 class SpeechToSpeechChatbot:
-    def __init__(self, apiKey):
+    def __init__(self, apiKey,context = ""):
         self.client = Neuphonic(api_key=apiKey)
         self.ws = self.client.agents.AsyncWebsocketClient()
         self.player = AsyncAudioPlayer()
         self.recorder = AsyncAudioRecorder(sampling_rate=16000, websocket=self.ws, player=self.player)
+        self.context = context
 
     async def start_chat(self):
         async def on_message(message: APIResponse[AgentResponse]):
@@ -46,6 +47,7 @@ class SpeechToSpeechChatbot:
 
         self.ws.on(WebsocketEvents.MESSAGE, on_message)
         self.ws.on(WebsocketEvents.CLOSE, on_close)
+        self.ws.send(self.context) #send context to voice agent
 
         await self.player.open()
         await self.ws.open(agent_config=AgentConfig(sampling_rate=16000))
