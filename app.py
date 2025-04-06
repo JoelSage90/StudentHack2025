@@ -4,9 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 import secrets
 import requests
 import os
-import speech_recognition as sr
 from pydub import AudioSegment
 import whisper
+import ssl
+import re
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 model = whisper.load_model("base")  # You can change this to a larger model if needed
 
@@ -122,7 +125,7 @@ def google_login():
             db.session.add(user)
             db.session.commit()
 
-        session[1] = user.id
+        session['user_id'] = user.id
         return redirect(url_for('home'))
     else:
         return f"Failed to fetch user info from Google. Status code: {user_info.status_code}. Response: {user_info.text}"
@@ -172,25 +175,27 @@ def process_conversation():
 
 def summarize_conversation(conversation_text):
     try:
-        # Assuming Ollama has an API endpoint for summarization
-        ollama_url = "http://localhost:11431/v1/summarize"  # Replace with your Ollama URL
-        headers = {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer your_api_key'  # If necessary
-        }
-        
-        payload = {
-            'text': conversation_text
+        url = "http://localhost:11434/api/generate"
+        headers = {"Content-Type": "application/json"}
+        prompt = f"Summarize this conversation (under 50 words): {conversation_text}"
+        data = {
+            "model": "deepseek-r1:1.5b",
+            "prompt": prompt,
+            "stream": False
         }
 
-        response = requests.post(ollama_url, json=payload, headers=headers)
-        
+
+        response = requests.post(url, headers=headers, json=data)
+
         if response.status_code == 200:
-            summary = response.json().get("summary", "No summary returned.")
-            return summary
+            response_json = response.json()
+            full_response = str(response_json.get("response", ""))
+            # Remove <think> tags
+            full_response = re.sub(r'<think>.*?</think>', '', full_response, flags=re.DOTALL).strip()
+            return full_response
         else:
-            return "Error: Ollama API returned an error."
-    
+            response.raise_for_status()
+        
     except Exception as e:
         print(f"Error with Ollama: {str(e)}")
         return "Error occurred while summarizing."
