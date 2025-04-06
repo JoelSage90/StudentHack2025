@@ -1,43 +1,39 @@
 import os
 import asyncio
-from pyneuphonic import Neuphonic, Agent, AgentConfig
-import threading
-from dotenv import load_dotenv
-load_dotenv()
-apiKey = os.getenv("NEUPHONIC_API_KEY")
+from pyneuphonic import Neuphonic, WebsocketEvents
+from pyneuphonic.player import AsyncAudioPlayer, AsyncAudioRecorder
+from pyneuphonic.models import APIResponse, AgentResponse, AgentConfig
 
-#threading used to run tasks concurrently (bg tasks)
-chatbot_thread = None
-chatbot_agent = None
-chatbot_loop = None
+class SpeechToSpeechChatbot:
+    def __init__(self, api_key):
+        self.client = Neuphonic(api_key=api_key)
+        self.ws = self.client.agents.AsyncWebsocketClient()
+        self.player = AsyncAudioPlayer()
+        self.recorder = AsyncAudioRecorder(sampling_rate=16000, websocket=self.ws, player=self.player)
 
-class genericAssistant:
-    def __init__(self,context):
-        self.context = context
-        self.client = Neuphonic(api_key = apiKey)
+    async def start_chat(self):
+        async def on_message(message: APIResponse[AgentResponse]):
+            if message.data.type == 'audio_response':
+                await self.player.play(message.data.audio)  # Play the response audio
+            elif message.data.type == 'user_transcript':
+                print(f'User: {message.data.text}')
+            elif message.data.type == 'llm_response':
+                print(f'Agent: {message.data.text}')
+            elif message.data.type == 'stop_audio_response':
+                await self.player.stop_playback()  # Stop audio on user interruption
 
-    async def run(self):
+        async def on_close():
+            await self.player.close()
+            await self.recorder.close()
 
-        global chatbot_agent
-        agent_id = self.client.agents.create(
-        name='Agent 1',
-        prompt=f"You are talking to a person with Alzheimer's. Help them recall their memories. Here is there stored memories {self.context}",
-        greeting='Hi, how can I help you today?').data['agent_id']
+        self.ws.on(WebsocketEvents.MESSAGE, on_message)
+        self.ws.on(WebsocketEvents.CLOSE, on_close)
 
-        chatbot_agent = Agent(self.client, agent_id = agent_id, tts_model = 'neu_hq')
-        await chatbot_agent.start()
+        await self.player.open()
+        await self.ws.open(agent_config=AgentConfig(sampling_rate=16000))
 
-    def start_background(self):
-        global chatbot_loop, chatbot_thread
-        chatbot_loop = asyncio.new_event_loop()
-        def run_loop():
-            asyncio.set_event_loop(chatbot_loop)
-            chatbot_loop.run_until_complete(self.run())
+        # Start recording user speech
+        await self.recorder.record()
 
-        chatbot_thread = threading.Thread(target=run_loop)
-        chatbot_thread.start()
-
-def stop_chatbot():
-    global chatbot_agent, chatbot_loop
-    if chatbot_agent and chatbot_loop:
-        chatbot_loop.call_soon_threadsafe(asyncio.create_task, chatbot_agent.stop())
+    async def stop_chat(self):
+        await self.ws.close()
