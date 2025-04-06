@@ -2,10 +2,13 @@ from flask import Flask, render_template, redirect, url_for, session, request, j
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_sqlalchemy import SQLAlchemy
 import secrets
-import subprocess
+import requests
 import os
 import speech_recognition as sr
 from pydub import AudioSegment
+import whisper
+
+model = whisper.load_model("base")  # You can change this to a larger model if needed
 
 app = Flask("__name__")
 app.secret_key = str(secrets.token_hex(16))
@@ -39,7 +42,7 @@ class User(db.Model):
     reminders = db.relationship('Reminders', backref='user', lazy=True)
     
     def __repr__(self):
-        return f'<User {self.id}>'
+        return f'User {self.id}'
 
 class Associates(db.Model):
     __tablename__ = "associates"
@@ -169,58 +172,75 @@ def process_conversation():
 
 def summarize_conversation(conversation_text):
     try:
-        process = subprocess.run(['deepseek-cli', '--version'], 
-                                 capture_output=True, 
-                                 timeout=2)
-        process = subprocess.Popen(['deepseek-cli', '--summarize', conversation_text],
-                                  stdout=subprocess.PIPE, 
-                                  stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate(timeout=10)
+        # Assuming Ollama has an API endpoint for summarization
+        ollama_url = "http://localhost:11431/v1/summarize"  # Replace with your Ollama URL
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer your_api_key'  # If necessary
+        }
+        
+        payload = {
+            'text': conversation_text
+        }
 
-        if stdout:
-            return stdout.decode().strip()
+        response = requests.post(ollama_url, json=payload, headers=headers)
+        
+        if response.status_code == 200:
+            summary = response.json().get("summary", "No summary returned.")
+            return summary
         else:
-            return "DeepSeek returned no summary."
-    except (subprocess.SubprocessError, FileNotFoundError):
-        words = conversation_text.split()
-        if len(words) > 20:
-            return " ".join(words[:20]) + "... (simple summary, DeepSeek unavailable)"
-        return conversation_text
+            return "Error: Ollama API returned an error."
+    
+    except Exception as e:
+        print(f"Error with Ollama: {str(e)}")
+        return "Error occurred while summarizing."
 
-@app.route('/process_audio', methods=['POST'])
+@app.route("/process_audio", methods=['POST'])
 def process_audio():
     if 'audio' not in request.files:
         return jsonify({'error': 'No audio file provided'}), 400
-    
+
     audio_file = request.files['audio']
-    
-    # Create upload directory if it doesn't exist
+
+    # Define directories for saving the uploaded and converted audio files
     upload_dir = os.path.join('static', 'uploads')
     os.makedirs(upload_dir, exist_ok=True)
 
+    # Paths for the original and converted audio
     original_path = os.path.join(upload_dir, 'original_audio')
     converted_path = os.path.join(upload_dir, 'converted.wav')
 
+    # Save the uploaded audio file to the original path
     audio_file.save(original_path)
 
     try:
+        print("Converting audio to WAV...")  # Debug statement
+        # Convert the uploaded audio to WAV format (single channel and 16 kHz sample rate)
         audio = AudioSegment.from_file(original_path)
         audio = audio.set_channels(1).set_frame_rate(16000)
         audio.export(converted_path, format="wav")
+        print(f"Audio saved at: {converted_path}")  # Debug statement
     except Exception as e:
-        return jsonify({'error': 'Failed to convert audio. Make sure ffmpeg is installed.'}), 500
+        print(f"Error converting audio: {str(e)}")  # Debug statement
+        return jsonify({'error': f'Failed to convert audio: {str(e)}'}), 500
 
-    recognizer = sr.Recognizer()
     try:
-        with sr.AudioFile(converted_path) as source:
-            audio_data = recognizer.record(source)
-            transcription = recognizer.recognize_google(audio_data)
-            assistant_response = f"I heard: {transcription}"
-            return jsonify({'transcription': transcription, 'response': assistant_response})
-    except sr.UnknownValueError:
-        return jsonify({'error': 'Unable to transcribe audio'}), 500
+        print("Loading Whisper model...")  # Debug statement
+        # Transcribe the converted audio file using Whisper
+        result = model.transcribe(converted_path)
+
+        # Get the transcription text
+        transcription = result["text"]
+        print(f"Full transcription: {transcription}")  # Print the full transcription in the terminal
+
+        # Create a response (you can adjust this as needed)
+        assistant_response = f"I heard: {transcription}"
+        return jsonify({'transcription': transcription, 'response': assistant_response})
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Error during transcription: {str(e)}")  # Debug statement
+        return jsonify({'error': f'Whisper transcription failed: {str(e)}'}), 500
+
+
 
 @app.route("/check_conversations", methods=['GET'])
 def check_conversations():
