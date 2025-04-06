@@ -137,6 +137,7 @@ listContainer.addEventListener("click", function (e) {
                     saveData();
                 }, 1000);
             }, 500);
+            
         } else {
             saveData();
         }

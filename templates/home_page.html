@@ -22,8 +22,10 @@
             <div class="box">Reminders:
                 <div class="todo-list">
                     <div class="row">
-                        <input type="text" id="input-box" placeholder="Add Your Reminder">
-                        <button onclick="AddTask()">Add</button>
+                        <form action="" method="POST">
+                            <input type="text" name="reminder" id="input-box" placeholder="Add Your Reminder">
+                            <button onclick="AddTask()">Add</button>
+                        </form>
                     </div>
                     <ul id="list-container">
                     </ul>
