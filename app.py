@@ -100,22 +100,6 @@ class Conversations(db.Model):
     def __repr__(self):
         return f'<Conversation {self.id}>'
 
-# Routes
-@app.route("/")
-def index():
-    return render_template("login_page.html")
-
-@app.route("/home")
-def home():
-    return render_template("home_page.html")
-
-@app.route("/profile_page")
-def profile_page():
-    return render_template("profile_page.html")
-
-@app.route("/conversations")
-def conversations():
-    return render_template("conversations.html")
 
 @app.route("/google_login")
 def google_login():
@@ -139,6 +123,48 @@ def google_login():
         return redirect(url_for('home'))
     else:
         return f"Failed to fetch user info from Google. Status code: {user_info.status_code}. Response: {user_info.text}"
+    
+# Routes
+@app.route("/")
+def index():
+    return render_template("login_page.html")
+
+@app.route("/home", methods = ["POST","GET"])
+def home():
+    #add reminder
+    if request.method =="POST":
+        current_reminder = request.form['reminder']
+        new_reminder = Reminders(user_id = session['user_id'], info = current_reminder)
+        try:
+            db.session.add(new_reminder)
+            db.session.commit()
+        except Exception as e:
+            return f"Error:{e}"
+
+    
+    @app.route('/delete-reminder/<int:reminder_id>', methods=['DELETE'])
+    def delete_reminder(reminder_id):
+        # Find the reminder by its ID in the database
+        reminder = Reminders.query.get(reminder_id)
+        
+        if reminder:
+            db.session.delete(reminder)
+            db.session.commit()
+            return jsonify({'message': 'Reminder deleted successfully!'}), 200
+        else:
+            return jsonify({'message': 'Reminder not found'}), 404
+
+    return render_template("home_page.html")
+
+@app.route("/profile_page")
+def profile_page():
+    return render_template("profile_page.html")
+
+@app.route("/conversations")
+def conversations():
+    return render_template("conversations.html")
+
+
 
 @app.route("/process_conversation", methods=['POST'])
 def process_conversation():
