@@ -4,33 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Voice Assistant</title>
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/conversations.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
+
+  <!-- Optional: Google Fonts for cleaner UI -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class ="layout">
-        <div class = "sidebar">
-            <h2><img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="es" class="es_logo_white"></h2>
-            <a href="#"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt=""></a>
-            <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt =""></a>
-            <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt =""></a>
-            <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt =""></a>
-            <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt =""></a>
-        </div>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <img src="{{ url_for('static', filename='icons/es_logo_white.png') }}" alt="ES Logo" class="es_logo_white">
+    <nav>
+      <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='icons/house.svg') }}" alt="Home"></a>
+      <a href="{{ url_for('profile_page') }}"><img src="{{ url_for('static', filename='icons/user-pen.svg') }}" alt="Profile"></a>
+      <a href="{{ url_for('conversations') }}"><img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Conversations"></a>
+      <a href="#"><img src="{{ url_for('static', filename='icons/users.svg') }}" alt="Users"></a>
+      <a href="#"><img src="{{ url_for('static', filename='icons/settings.svg') }}" alt="Settings"></a>
+    </nav>
+  </aside>
 
-        <div class="bottom">
-            <div id="voice-container">
-                <div id="voice-text">What can I help with?</div>
-                <div id="voice-icon" class="voice-icon" onclick="startRecording()">
-                    <img src="{{ url_for('static', filename='icons/audio-lines.svg') }}" alt="Voice Assistant">
-                </div>
-                <div id="response-area">
-                    <p id="recognized-text"></p>
-                    <p id="assistant-response"></p>
-                </div>
-            </div>
-        </div>
-    <div>
-    <script src="{{ url_for('static', filename='js/conversations.js') }}"></script>
+  <!-- Main Content -->
+  <main class="voice-visualizer">
+    <div id="mic-circle" role="button" aria-label="Start recording" tabindex="0"></div>
+    <p id="voice-text">Tap to start</p>
+
+    <!-- Optional dynamic content containers -->
+    <div id="recognized-text"></div>
+    <div id="assistant-response"></div>
+    <div id="sliding-text" class="sliding-text"></div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/conversations.js') }}"></script>
 </body>
 </html>

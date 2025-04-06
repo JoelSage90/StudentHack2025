@@ -1,109 +1,42 @@
-.layout {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  display: flex;
-  min-height: 100vh;
-  font-family: 'YourFont', sans-serif;
-  background-color: #f8f9fa;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fbfd;
+  color: #333;
 }
 
-@font-face {
-  font-family: 'YourFont';
-  src: url('icons/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.tff') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Bottom section */
-.bottom {
-  padding: 25px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  height: 90%;
+.voice-visualizer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin-left: 126px; /* Offset for sidebar */
   text-align: center;
 }
 
-* Voice Assistant Styles */
-#voice-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+#mic-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, hsl(240, 60%, 50%), hsl(240, 60%, 35%));
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease-in-out, background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+#mic-circle:hover {
+  background: linear-gradient(145deg, hsl(240, 70%, 55%), hsl(240, 60%, 40%));
+}
+
+#mic-circle:active {
+  transform: scale(0.95);
+  background-color: hsl(240, 60%, 45%);
 }
 
 #voice-text {
-    font-size: 48px;
-    font-weight: 500;
-    margin-bottom: 50px;
-}
-
-.voice-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #3a3d4f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.voice-icon img {
-    width: 40px;
-    height: 40px;
-    filter: invert(100%);
-}
-
-/* Hover animation for the voice icon */
-.voice-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(58, 61, 79, 0.5);
-    animation: pulse-hover 1.5s infinite;
-}
-
-/* Active/listening state */
-.voice-icon.listening {
-    background-color: #e74c3c;
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse-hover {
-  0% {
-      box-shadow: 0 0 0 0 rgba(58, 61, 79, 0.7);
-  }
-  70% {
-      box-shadow: 0 0 0 15px rgba(58, 61, 79, 0);
-  }
-  100% {
-      box-shadow: 0 0 0 0 rgba(58, 61, 79, 0);
-  }
-}
-
-@keyframes pulse {
-  0% {
-      box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
-  }
-  70% {
-      box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
-  }
-  100% {
-      box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
-  }
+  margin-top: 24px;
+  font-size: 22px;
+  font-weight: 500;
+  color: #444;
 }
