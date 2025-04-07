@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>EchoSphere Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/login_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/sidebar.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="left">
-            <img src="{{ url_for('static', filename='icons/es_logo_trans.png') }}" class="logo" alt="">
-            <h2>Welcome To EchoSphere</h2>
-            <h5 style="color: gray;">"Amplify Memories"</h5>
-            <div>
-                <button onclick="window.location.href='{{ url_for('google_login') }}'" class="login-button">
-                    <img src="{{ url_for('static', filename='icons/google_icon.png') }}" alt="">
-                    Login with Google
-                </button>
+            <!-- Decorative blobs -->
+            <div class="blob1"></div>
+            <div class="blob2"></div>
+            <div class = "blob3"></div>
+            
+            <img src="{{ url_for('static', filename='icons/es_logo_trans.png') }}" class="logo" alt="EchoSphere Logo">
+            
+            <div class="login-box">
+                <h2>Welcome To EchoSphere</h2>
+                <h5 style="color: gray;">"Amplify Memories"</h5>
+                
+                <div>
+                    <button onclick="window.location.href='{{ url_for('google_login') }}'" class="login-button">
+                        <img src="{{ url_for('static', filename='icons/google_icon.png') }}" alt="Google">
+                        Login with Google
+                    </button>
+                </div>
             </div>
         </div>
         <div class="right"></div>

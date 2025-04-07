@@ -24,7 +24,7 @@
 
     <!-- Main content -->
     <main class="main-content">
-      <h2>Who to talk to?</h2>
+      <h2 class = "relations-heading">Who to talk to?</h2>
       <div class="person-card">
         <div class="person-info">
           <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="User" class="person-icon">
@@ -35,8 +35,10 @@
         </div>
         <img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Chat" class="chat-icon">
       </div>
-
-      <button class="add-button" onclick="openModal()">+</button>
+      <div class = "add-button-container">
+        <button class="add-button" onclick="openModal()">+</button>
+      </div>
+      
 
       <!-- Modal -->
       <div class="modal" id="addModal">

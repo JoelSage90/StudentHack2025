@@ -22,15 +22,14 @@
             <div class="box">Reminders:
                 <div class="todo-list">
                     <div class="row">
-                        <form action="" method="POST">
-                            <input type="text" name="reminder" id="input-box" placeholder="Add Your Reminder">
-                            <button onclick="AddTask()">Add</button>
-                        </form>
+                        <input type="text" name="reminder" id="input-box" placeholder="Add Your Reminder">
+                        <button onclick="AddTask()">Add</button>
                     </div>
                     <ul id="list-container">
-                        {% for reminder in reminders %}
-                        <li>{{reminder.info}}</li>
-                        {% endfor %}
+                        <li>Empty Bins</li>
+                        <li>Call Grandma</li>
+                        <li>Wash clothes</li>
+                        <li>book appointment</li>
                     </ul>
                 </div>
             </div>
@@ -40,14 +39,13 @@
                         <img src="{{ url_for('static', filename='icons/user.svg') }}" alt="Profile Icon">
                     </div>
                     <ul>
-                        {% for person in people %}
                         <li>
                             <div class="profile-info">
-                                <p><strong>Name:</strong>{{person.name}}</p>
-                                <p><strong>Relation:</strong> {{person.relation_to_user}}</p>
+                                <p><strong>Name:</strong>John Doe</p>
+                                <p><strong>Relation:</strong>Son</p>
                             </div>
+                            
                         </li>
-                        {% endfor %}
                     </ul>
                     <div class="message-icon">
                         <img src="{{ url_for('static', filename='icons/message-circle.svg') }}" alt="Message Icon" onclick="handleProfileClick('John Doe')">

@@ -212,7 +212,7 @@ ul li.checked {
     padding: 20px;
     margin-top: 10px;
     width: 100%;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px #0000000d;
     gap: 20px;
 }
 
