@@ -92,7 +92,7 @@ Watching someone struggle to recall the people and moments that shaped their lif
 ## 🛠 Installation (WIP)
 
 ```bash
-git clone https://github.com/yourusername/echosphere.git
-cd echosphere
+git clone https://github.com/JoelSage90/StudentHack2025.git
+cd StudentHack2025
 pip install -r requirements.txt
 flask run
